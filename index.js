@@ -138,15 +138,17 @@ const gameLoop = () => {
     process.stdin.setRawMode(true);
     process.stdin.setEncoding('utf8');
     process.stdin.on('data', (key) => {
-       if (key === '\u001b[D'){
-        i--;
-        displayBoard(allBoards, i);
-       }
-       if (key === '\u001b[C'){
-        i++;
-        displayBoard(allBoards, i);
-       }
-       if (key === 'c') exit();
+        if (key === '\u001b[D'){
+            i--;
+            if (i === -1) i++;
+            displayBoard(allBoards, i);
+        }
+        if (key === '\u001b[C'){
+            if (i === allBoards.length - 1) exit('');
+            i++;
+            displayBoard(allBoards, i);
+        }
+        if (key === '\u001b') exit('');
     });
 };
 gameLoop();
